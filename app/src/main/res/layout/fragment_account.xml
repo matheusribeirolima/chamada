@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/vBack"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
+            android:background="@drawable/account_bg" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civUserImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            android:layout_toEndOf="@+id/civUserImage"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvUserEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvClassroom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vBack"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="20dp"
+            android:textSize="17sp"
+            android:text="@string/myClassroom" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_below="@+id/tvClassroom"
+            android:background="@color/dividerColor" />
+
+        <TextView
+            android:id="@+id/tvHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvClassroom"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="20dp"
+            android:textSize="17sp"
+            android:text="@string/history" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_below="@+id/tvHistory"
+            android:background="@color/dividerColor" />
+
+        <TextView
+            android:id="@+id/tvAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvHistory"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="20dp"
+            android:textSize="17sp"
+            android:text="@string/about" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_below="@+id/tvAbout"
+            android:background="@color/dividerColor" />
+
+        <TextView
+            android:id="@+id/tvExit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAbout"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="20dp"
+            android:textSize="17sp"
+            android:text="@string/exit" />
+
+    </RelativeLayout>
+</layout>

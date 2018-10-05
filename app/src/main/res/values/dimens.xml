@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tiny_margin">4dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="big_margin">32dp</dimen>
+    <dimen name="extra_margin">50dp</dimen>
+    <dimen name="extra_large_margin">70dp</dimen>
+    <dimen name="height_calendar">40dp</dimen>
+    <dimen name="title_font_size">20sp</dimen>
+    <dimen name="subtitle_font_size">16sp</dimen>
+    <dimen name="card_width">150dp</dimen>
+    <dimen name="card_radius">4dp</dimen>
+    <dimen name="card_padding">4dp</dimen>
+
+    <!-- Fonts -->
+    <dimen name="font_size_tiny">8sp</dimen>
+    <dimen name="font_size_small">12sp</dimen>
+    <dimen name="font_size_normal">14sp</dimen>
+    <dimen name="font_size_medium">16sp</dimen>
+    <dimen name="font_size_large">20sp</dimen>
+    <dimen name="font_size_extra_large">24sp</dimen>
+    <dimen name="font_size_title">36sp</dimen>
+    <dimen name="font_line_spacing">8sp</dimen>
+    <dimen name="font_cash_back">62sp</dimen>
+</resources>

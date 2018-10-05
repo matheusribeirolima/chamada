@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Chamada</string>
+    <string name="app_logo">Logo do Aplicativo</string>
+    <string name="serverUrl">http://www.mocky.io/v2/</string>
+    <string name="confirm">Confirmar</string>
+    <string name="login">Login</string>
+    <string name="welcome">Seja bem vindo professor!</string>
+    <string name="makeLogin">Faça login com seus dados do sistema da UFU.</string>
+    <string name="email">E-mail</string>
+    <string name="pass">Senha</string>
+    <string name="touch_id">"Impressão Digital   "</string>
+    <string name="touch_id_active">O próximo login será feito com a digital</string>
+    <string name="noConnection">Por favor, verifique sua conexão e tente novamente</string>
+    <string name="invalidEmail">E-mail inválido</string>
+    <string name="invalidPassword">Senha inválida</string>
+    <string name="calendar">Calendário</string>
+    <string name="account">Conta</string>
+    <string name="configs">Configurações</string>
+    <string name="myClassroom">Minhas Turmas</string>
+    <string name="history">Histórico de Chamadas</string>
+    <string name="about">Sobre</string>
+    <string name="exit">Sair</string>
+    <string name="exitChamada">Sair do Aplicativo</string>
+    <string name="logoutChamada">Tem certeza que deseja fazer logout?</string>
+    <string name="settings">Configurações</string>
+    <string name="configurations">Configurações Gerais</string>
+    <string name="configurations_subtitle">Aqui encontram-se as configurações da chamada. Fique à vontade para customizar como quiser!</string>
+
+    <!-- FINGERPRINT -->
+    <string name="act_fingerprint_iv_logo">Digital</string>
+    <string name="act_fingerprint_subtitle">Coloque sua digital no sensor para verificar sua identidade.</string>
+    <string name="act_fingerprint_bt_login">Entrar com a senha</string>
+    <string name="act_fingerprint_tv_explain">A autenticação por digital deixa o login mais rápido, seu dispositivo deve ter ao menos uma digital cadastrada nas configurações.</string>
+    <string name="act_fingerprint_ok_finger">Digital reconhecida!</string>
+    <string name="act_fingerprint_error_finger">Digital não reconhecida, tente novamente.</string>
+    <string name="act_fingerprint_error_three_try">Quantidade de tentativas excedidas</string>
+    <string name="sp_secure_preferences">secure_preference</string>
+
+    <!--CALL FRAGMENT-->
+    <string name="frag_call_classroom">"TURMA: "</string>
+    <string name="frag_call_theme">"DISCIPLINA: "</string>
+    <string name="frag_call_schedule">"HORÁRIO: "</string>
+    <string name="frag_call_block_class">"SALA: "</string>
+    <string name="iv_check">check</string>
+
+
+</resources>
