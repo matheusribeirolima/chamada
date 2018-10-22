@@ -1,15 +1,11 @@
 package br.com.matheus.chamada.view.main.call;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +16,6 @@ import java.util.Date;
 import br.com.matheus.chamada.R;
 import br.com.matheus.chamada.databinding.FragmentCallBinding;
 import br.com.matheus.chamada.model.response.ErrorResponse;
-import br.com.matheus.chamada.model.response.Lesson;
 import br.com.matheus.chamada.model.response.LessonResponse;
 import br.com.matheus.chamada.repository.ChamadaRepository;
 import br.com.matheus.chamada.service.ChamadaResponse;
@@ -57,16 +52,16 @@ public class CallFragment extends Fragment implements FabClickListener {
             public void onResponseSuccess(LessonResponse response) {
                 if (response.isHasLesson()) {
                     binding.tvNoCall.setVisibility(View.GONE);
-                    binding.llHasCall.setVisibility(View.VISIBLE);
+                    binding.rvCall.setVisibility(View.VISIBLE);
 
-                    configureTexts(response.getLesson());
+                    callAdapter.setLesson(response.getLesson());
 
                     binding.rvCall.setItemViewCacheSize(response.getLesson().getClassroom().getStudents().size());
                     callAdapter.setStudents(response.getLesson().getClassroom().getStudents());
 
                     lessonId = response.getLesson().getId();
                 } else {
-                    binding.llHasCall.setVisibility(View.GONE);
+                    binding.rvCall.setVisibility(View.GONE);
                     binding.tvNoCall.setVisibility(View.VISIBLE);
                 }
             }
@@ -80,62 +75,8 @@ public class CallFragment extends Fragment implements FabClickListener {
         return binding.getRoot();
     }
 
-    private void configureTexts(Lesson lesson) {
-        String classroom = getResources().getString(R.string.frag_call_classroom);
-
-        SpannableStringBuilder strClassroom = new SpannableStringBuilder(classroom +
-                lesson.getClassroom().getCode());
-        strClassroom.setSpan(new StyleSpan(Typeface.BOLD),
-                0,
-                classroom.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        binding.tvClassroomCall.setText(strClassroom);
-
-        String theme = getResources().getString(R.string.frag_call_theme);
-
-        SpannableStringBuilder strTheme = new SpannableStringBuilder(theme +
-                lesson.getClassroom().getTheme().getName());
-        strTheme.setSpan(new StyleSpan(Typeface.BOLD),
-                0,
-                theme.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        binding.tvThemeCall.setText(strTheme);
-
-        String schedule = getResources().getString(R.string.frag_call_schedule);
-
-        StringBuilder stringSchedule = new StringBuilder();
-        for (int i = 0; i < lesson.getSchedules().size(); i++) {
-            stringSchedule.append(lesson.getSchedules().get(i).getId());
-            if (i < lesson.getSchedules().size() - 1) {
-                stringSchedule.append(" / ");
-            }
-        }
-
-        SpannableStringBuilder strSchedule = new SpannableStringBuilder(schedule +
-                stringSchedule);
-        strSchedule.setSpan(new StyleSpan(Typeface.BOLD),
-                0,
-                schedule.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        binding.tvScheduleCall.setText(strSchedule);
-
-        String blockClass = getResources().getString(R.string.frag_call_block_class);
-
-        SpannableStringBuilder strBlockClass = new SpannableStringBuilder(blockClass +
-                lesson.getClassroom().getBlockClass());
-        strBlockClass.setSpan(new StyleSpan(Typeface.BOLD),
-                0,
-                blockClass.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        binding.tvBlockClassCall.setText(strBlockClass);
-    }
-
     private void configureRecycler() {
-        callAdapter = new CallAdapter();
+        callAdapter = new CallAdapter(getContext());
         binding.rvCall.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL,
                 false));

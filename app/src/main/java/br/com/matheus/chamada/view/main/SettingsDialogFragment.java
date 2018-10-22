@@ -2,6 +2,7 @@ package br.com.matheus.chamada.view.main;
 
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +13,18 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.Objects;
 
 import br.com.matheus.chamada.R;
 import br.com.matheus.chamada.databinding.DialogFragmentSettingsBinding;
+import br.com.matheus.chamada.helper.PreferencesHelper;
 
 /**
  * Created by mathe on 17/03/2018.
@@ -42,6 +50,10 @@ public class SettingsDialogFragment extends DialogFragment {
 
         setCancelable(false);
 
+        binding.ibCloseConfig.setOnClickListener(v -> dismiss());
+
+        configureSelected();
+
         return new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                 .setOnKeyListener((dialog, keyCode, event) -> {
                     if (keyCode == KeyEvent.KEYCODE_BACK &&
@@ -54,6 +66,48 @@ public class SettingsDialogFragment extends DialogFragment {
                 })
                 .setView(binding.getRoot())
                 .create();
+    }
+
+    private void configureSelected() {
+        if (Hawk.get(PreferencesHelper.SINGLE_CHECK)) {
+            binding.ivSingleConfig.setImageAlpha(1);
+        } else if (Hawk.get(PreferencesHelper.DOUBLE_CHECK)) {
+            binding.ivDoubleConfig.setImageAlpha(1);
+        } else if (Hawk.get(PreferencesHelper.ALL_CHECK)) {
+            binding.ivAllConfig.setImageAlpha(1);
+        }
+
+        binding.llSingleConfig.setOnClickListener(v -> {
+            fadeIn(binding.ivSingleConfig);
+            fadeOut(binding.ivDoubleConfig);
+            fadeOut(binding.ivAllConfig);
+        });
+
+        binding.llDoubleConfig.setOnClickListener(v -> {
+            fadeOut(binding.ivSingleConfig);
+            fadeIn(binding.ivDoubleConfig);
+            fadeOut(binding.ivAllConfig);
+        });
+
+        binding.llAllConfig.setOnClickListener(v -> {
+            fadeOut(binding.ivSingleConfig);
+            fadeOut(binding.ivDoubleConfig);
+            fadeIn(binding.ivAllConfig);
+        });
+    }
+
+    private void fadeIn(View view) {
+        YoYo.with(Techniques.FadeIn)
+                .duration(400)
+                .interpolate(new AccelerateDecelerateInterpolator())
+                .playOn(view);
+    }
+
+    private void fadeOut(View view) {
+        YoYo.with(Techniques.FadeOut)
+                .duration(400)
+                .interpolate(new DecelerateInterpolator())
+                .playOn(view);
     }
 
     public void show(FragmentManager manager) {

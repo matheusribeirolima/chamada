@@ -51,6 +51,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         } else {
+                            Hawk.put(PreferencesHelper.SINGLE_CHECK, true);
+                            Hawk.put(PreferencesHelper.DOUBLE_CHECK, false);
+                            Hawk.put(PreferencesHelper.ALL_CHECK, false);
                             if (!Hawk.get(PreferencesHelper.FINGERPRINT_CHECKED, false)) {
                                 Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
