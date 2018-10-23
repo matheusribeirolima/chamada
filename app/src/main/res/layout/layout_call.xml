@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="call"
+            type="br.com.matheus.chamada.view.CallLayout" />
     </data>
 
     <RelativeLayout
@@ -13,29 +16,37 @@
             android:id="@+id/cbFault1"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:buttonTint="@color/colorAccent" />
+            android:buttonTint="@color/colorAccent"
+            android:checked="@={call.oneChecked}"
+            android:enabled="@{!call.onlyShow}" />
 
         <CheckBox
             android:id="@+id/cbFault2"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_toEndOf="@+id/cbFault1"
-            android:buttonTint="@color/colorAccent" />
+            android:layout_below="@+id/cbFault1"
+            android:buttonTint="@color/colorAccent"
+            android:checked="@={call.twoChecked}"
+            android:enabled="@{!call.onlyShow}" />
 
         <CheckBox
             android:id="@+id/cbFault3"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_below="@+id/cbFault1"
-            android:buttonTint="@color/colorAccent" />
+            android:layout_toEndOf="@+id/cbFault1"
+            android:buttonTint="@color/colorAccent"
+            android:checked="@={call.threeChecked}"
+            android:enabled="@{!call.onlyShow}" />
 
         <CheckBox
             android:id="@+id/cbFault4"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_below="@+id/cbFault2"
-            android:layout_toEndOf="@+id/cbFault3"
-            android:buttonTint="@color/colorAccent" />
+            android:layout_below="@+id/cbFault3"
+            android:layout_toEndOf="@+id/cbFault2"
+            android:buttonTint="@color/colorAccent"
+            android:checked="@={call.fourChecked}"
+            android:enabled="@{!call.onlyShow}" />
 
     </RelativeLayout>
 </layout>

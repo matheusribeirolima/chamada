@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -49,9 +50,12 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/small_margin">
 
-                <include
-                    android:id="@+id/lcSingleConfig"
-                    layout="@layout/layout_call" />
+                <br.com.matheus.chamada.view.CallLayout
+                    android:id="@+id/clSingleConfig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:marks="1"
+                    app:onlyShow="true" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -86,9 +90,12 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/small_margin">
 
-                <include
-                    android:id="@+id/lcDoubleConfig"
-                    layout="@layout/layout_call" />
+                <br.com.matheus.chamada.view.CallLayout
+                    android:id="@+id/clDoubleConfig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:marks="2"
+                    app:onlyShow="true" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -123,9 +130,12 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/small_margin">
 
-                <include
-                    android:id="@+id/lcAllConfig"
-                    layout="@layout/layout_call" />
+                <br.com.matheus.chamada.view.CallLayout
+                    android:id="@+id/clAllConfig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:marks="4"
+                    app:onlyShow="true" />
 
                 <TextView
                     android:layout_width="0dp"

@@ -1,6 +1,7 @@
 package br.com.matheus.chamada.view.main.call;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,20 +82,19 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             final Student student = students.get(position);
             final NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
 
-            imageLoader.displayImage(student.getPhoto(), normalViewHolder.binding.civStudent);
-            normalViewHolder.binding.tvStudentName.setText(student.getName());
-            normalViewHolder.binding.tvStudentName.setSelected(true);
-            normalViewHolder.binding.tvNote.setText("Nota: " + student.getScore());
-            normalViewHolder.binding.tvFault.setText("Faltas: " + student.getFaults());
+            normalViewHolder.binding.setStudent(student);
 
-            normalViewHolder.binding.rlFault.cbFault1
-                    .setChecked(normalViewHolder.binding.rlFault.cbFault1.isChecked());
-            normalViewHolder.binding.rlFault.cbFault2
-                    .setChecked(normalViewHolder.binding.rlFault.cbFault2.isChecked());
-            normalViewHolder.binding.rlFault.cbFault3
-                    .setChecked(normalViewHolder.binding.rlFault.cbFault3.isChecked());
-            normalViewHolder.binding.rlFault.cbFault4
-                    .setChecked(normalViewHolder.binding.rlFault.cbFault4.isChecked());
+            imageLoader.displayImage(student.getPhoto(), normalViewHolder.binding.civStudent);
+            normalViewHolder.binding.tvStudentName.setSelected(true);
+
+//            normalViewHolder.binding.rlFault.cbFault1
+//                    .setChecked(normalViewHolder.binding.rlFault.cbFault1.isChecked());
+//            normalViewHolder.binding.rlFault.cbFault2
+//                    .setChecked(normalViewHolder.binding.rlFault.cbFault2.isChecked());
+//            normalViewHolder.binding.rlFault.cbFault3
+//                    .setChecked(normalViewHolder.binding.rlFault.cbFault3.isChecked());
+//            normalViewHolder.binding.rlFault.cbFault4
+//                    .setChecked(normalViewHolder.binding.rlFault.cbFault4.isChecked());
 
             if ((position + 1) < students.size()) {
                 normalViewHolder.binding.vDivider.setVisibility(View.VISIBLE);

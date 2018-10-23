@@ -2,19 +2,15 @@ package br.com.matheus.chamada.view.main;
 
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -35,6 +31,7 @@ public class SettingsDialogFragment extends DialogFragment {
     private static final String TAG = "tag_settings_dialog_fragment";
     private static boolean show = false;
     private DialogFragmentSettingsBinding binding;
+    private boolean singleChecked, doubleChecked, allChecked;
 
     public static SettingsDialogFragment newInstance() {
         return new SettingsDialogFragment();
@@ -51,6 +48,13 @@ public class SettingsDialogFragment extends DialogFragment {
         setCancelable(false);
 
         binding.ibCloseConfig.setOnClickListener(v -> dismiss());
+
+        binding.btConfirmConfig.setOnClickListener(v -> {
+            Hawk.put(PreferencesHelper.SINGLE_CHECK, singleChecked);
+            Hawk.put(PreferencesHelper.DOUBLE_CHECK, doubleChecked);
+            Hawk.put(PreferencesHelper.ALL_CHECK, allChecked);
+            dismiss();
+        });
 
         configureSelected();
 
@@ -70,43 +74,61 @@ public class SettingsDialogFragment extends DialogFragment {
 
     private void configureSelected() {
         if (Hawk.get(PreferencesHelper.SINGLE_CHECK)) {
-            binding.ivSingleConfig.setImageAlpha(1);
+            fadeIn(binding.ivSingleConfig);
         } else if (Hawk.get(PreferencesHelper.DOUBLE_CHECK)) {
-            binding.ivDoubleConfig.setImageAlpha(1);
+            fadeIn(binding.ivDoubleConfig);
         } else if (Hawk.get(PreferencesHelper.ALL_CHECK)) {
-            binding.ivAllConfig.setImageAlpha(1);
+            fadeIn(binding.ivAllConfig);
         }
 
         binding.llSingleConfig.setOnClickListener(v -> {
-            fadeIn(binding.ivSingleConfig);
-            fadeOut(binding.ivDoubleConfig);
-            fadeOut(binding.ivAllConfig);
+            if (!(boolean) Hawk.get(PreferencesHelper.SINGLE_CHECK)) {
+                fadeOut();
+                fadeIn(binding.ivSingleConfig);
+                singleChecked = true;
+            }
         });
 
         binding.llDoubleConfig.setOnClickListener(v -> {
-            fadeOut(binding.ivSingleConfig);
-            fadeIn(binding.ivDoubleConfig);
-            fadeOut(binding.ivAllConfig);
+            if (!(boolean) Hawk.get(PreferencesHelper.DOUBLE_CHECK)) {
+                fadeOut();
+                fadeIn(binding.ivDoubleConfig);
+                doubleChecked = true;
+            }
         });
 
         binding.llAllConfig.setOnClickListener(v -> {
-            fadeOut(binding.ivSingleConfig);
-            fadeOut(binding.ivDoubleConfig);
-            fadeIn(binding.ivAllConfig);
+            if (!(boolean) Hawk.get(PreferencesHelper.ALL_CHECK)) {
+                fadeOut();
+                fadeIn(binding.ivAllConfig);
+                allChecked = true;
+            }
         });
     }
 
     private void fadeIn(View view) {
         YoYo.with(Techniques.FadeIn)
-                .duration(400)
+                .duration(200)
                 .interpolate(new AccelerateDecelerateInterpolator())
                 .playOn(view);
     }
 
-    private void fadeOut(View view) {
+    private void fadeOut() {
+        View view = null;
+        if (Hawk.get(PreferencesHelper.SINGLE_CHECK)) {
+            view = binding.ivSingleConfig;
+            singleChecked = false;
+        } else if (Hawk.get(PreferencesHelper.DOUBLE_CHECK)) {
+            view = binding.ivDoubleConfig;
+            doubleChecked = false;
+        } else if (Hawk.get(PreferencesHelper.ALL_CHECK)) {
+            view = binding.ivAllConfig;
+            allChecked = false;
+        }
+
         YoYo.with(Techniques.FadeOut)
-                .duration(400)
-                .interpolate(new DecelerateInterpolator())
+                .duration(200)
+                .interpolate(new AccelerateDecelerateInterpolator())
                 .playOn(view);
     }
 
