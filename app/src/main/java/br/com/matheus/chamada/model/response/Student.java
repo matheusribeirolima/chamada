@@ -29,6 +29,9 @@ public class Student implements Serializable {
     @SerializedName("score")
     private int score;
 
+    @SerializedName("allFaults")
+    private int allFaults;
+
     @SerializedName("faults")
     private int faults;
 
@@ -78,6 +81,14 @@ public class Student implements Serializable {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getAllFaults() {
+        return allFaults;
+    }
+
+    public void setAllFaults(int allFaults) {
+        this.allFaults = allFaults;
     }
 
     public int getFaults() {

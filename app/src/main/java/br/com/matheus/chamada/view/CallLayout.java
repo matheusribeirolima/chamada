@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ObservableBoolean;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -20,7 +21,7 @@ public class CallLayout extends RelativeLayout {
 
     LayoutCallBinding binding;
 
-    private int marks;
+    private int count, marks;
     public boolean onlyShow, isEditing;
 
     public ObservableBoolean oneChecked = new ObservableBoolean(true);
@@ -62,6 +63,7 @@ public class CallLayout extends RelativeLayout {
                     defStyleAttr,
                     defStyleRes);
             try {
+                count = typedArray.getInteger(R.styleable.CallLayout_count, 4);
                 marks = typedArray.getInteger(R.styleable.CallLayout_marks, 0);
                 onlyShow = typedArray.getBoolean(R.styleable.CallLayout_onlyShow, false);
                 isEditing = typedArray.getBoolean(R.styleable.CallLayout_isEditing, true);
@@ -74,6 +76,25 @@ public class CallLayout extends RelativeLayout {
     }
 
     private void configureLayout() {
+        switch (count) {
+            case 1:
+                ((LayoutParams) binding.cbFault1.getLayoutParams()).addRule(CENTER_IN_PARENT);
+                binding.cbFault2.setVisibility(GONE);
+                binding.cbFault3.setVisibility(GONE);
+                binding.cbFault4.setVisibility(GONE);
+                break;
+            case 2:
+                ((LayoutParams) binding.cbFault1.getLayoutParams()).addRule(CENTER_HORIZONTAL);
+                ((LayoutParams) binding.cbFault2.getLayoutParams()).addRule(CENTER_HORIZONTAL);
+                binding.cbFault3.setVisibility(GONE);
+                binding.cbFault4.setVisibility(GONE);
+                break;
+            case 3:
+                binding.cbFault4.setVisibility(GONE);
+                break;
+            default:
+                break;
+        }
         switch (marks) {
             case 1:
                 oneChecked.set(true);
@@ -118,6 +139,10 @@ public class CallLayout extends RelativeLayout {
                             fourChecked.set(isChecked);
                             break;
                     }
+                } else if (Hawk.get(PreferencesHelper.TRIPLE_CHECK)) {
+                    oneChecked.set(isChecked);
+                    twoChecked.set(isChecked);
+                    threeChecked.set(isChecked);
                 } else if (Hawk.get(PreferencesHelper.ALL_CHECK)) {
                     oneChecked.set(isChecked);
                     twoChecked.set(isChecked);
@@ -134,16 +159,41 @@ public class CallLayout extends RelativeLayout {
     }
 
     public int getFaults() {
-        int count = 0;
+        int faults = 0;
         if (oneChecked.get()) {
-            count++;
-        } else if (twoChecked.get()) {
-            count++;
-        } else if (threeChecked.get()) {
-            count++;
-        } else if (fourChecked.get()) {
-            count++;
+            faults++;
+        } else if (twoChecked.get() && count >= 2) {
+            faults++;
+        } else if (threeChecked.get() && count >= 3) {
+            faults++;
+        } else if (fourChecked.get() && count == 4) {
+            faults++;
         }
-        return count;
+        return faults;
+    }
+
+    public void setFaults(int faults) {
+        switch (faults) {
+            case 1:
+                oneChecked.set(true);
+                break;
+            case 2:
+                oneChecked.set(true);
+                twoChecked.set(true);
+                break;
+            case 3:
+                oneChecked.set(true);
+                twoChecked.set(true);
+                threeChecked.set(true);
+                break;
+            case 4:
+                oneChecked.set(true);
+                twoChecked.set(true);
+                threeChecked.set(true);
+                fourChecked.set(true);
+                break;
+            default:
+                break;
+        }
     }
 }

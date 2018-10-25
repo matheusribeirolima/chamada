@@ -181,14 +181,9 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(binding.getRoot());
             this.binding = binding;
 
-            binding.rlFault.cbFault1.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                int faults = students.get(getAdapterPosition()).getFaults();
-                if (isChecked) {
-                    students.get(getAdapterPosition()).setFaults(faults + 1);
-                } else {
-                    students.get(getAdapterPosition()).setFaults(faults - 1);
-                }
-            });
+            binding.setLesson(lesson);
+
+            binding.executePendingBindings();
         }
     }
 }

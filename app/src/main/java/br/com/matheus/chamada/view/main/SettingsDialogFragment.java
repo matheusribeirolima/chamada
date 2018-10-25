@@ -31,7 +31,7 @@ public class SettingsDialogFragment extends DialogFragment {
     private static final String TAG = "tag_settings_dialog_fragment";
     private static boolean show = false;
     private DialogFragmentSettingsBinding binding;
-    private boolean singleChecked, doubleChecked, allChecked;
+    private boolean singleChecked, doubleChecked, tripleChecked, allChecked;
 
     public static SettingsDialogFragment newInstance() {
         return new SettingsDialogFragment();
@@ -52,6 +52,7 @@ public class SettingsDialogFragment extends DialogFragment {
         binding.btConfirmConfig.setOnClickListener(v -> {
             Hawk.put(PreferencesHelper.SINGLE_CHECK, singleChecked);
             Hawk.put(PreferencesHelper.DOUBLE_CHECK, doubleChecked);
+            Hawk.put(PreferencesHelper.TRIPLE_CHECK, tripleChecked);
             Hawk.put(PreferencesHelper.ALL_CHECK, allChecked);
             dismiss();
         });
@@ -74,15 +75,21 @@ public class SettingsDialogFragment extends DialogFragment {
 
     private void configureSelected() {
         if (Hawk.get(PreferencesHelper.SINGLE_CHECK)) {
+            singleChecked = true;
             fadeIn(binding.ivSingleConfig);
         } else if (Hawk.get(PreferencesHelper.DOUBLE_CHECK)) {
+            doubleChecked = true;
             fadeIn(binding.ivDoubleConfig);
+        } else if (Hawk.get(PreferencesHelper.TRIPLE_CHECK)) {
+            tripleChecked = true;
+            fadeIn(binding.ivTripleConfig);
         } else if (Hawk.get(PreferencesHelper.ALL_CHECK)) {
+            allChecked = true;
             fadeIn(binding.ivAllConfig);
         }
 
         binding.llSingleConfig.setOnClickListener(v -> {
-            if (!(boolean) Hawk.get(PreferencesHelper.SINGLE_CHECK)) {
+            if (!singleChecked) {
                 fadeOut();
                 fadeIn(binding.ivSingleConfig);
                 singleChecked = true;
@@ -90,15 +97,23 @@ public class SettingsDialogFragment extends DialogFragment {
         });
 
         binding.llDoubleConfig.setOnClickListener(v -> {
-            if (!(boolean) Hawk.get(PreferencesHelper.DOUBLE_CHECK)) {
+            if (!doubleChecked) {
                 fadeOut();
                 fadeIn(binding.ivDoubleConfig);
                 doubleChecked = true;
             }
         });
 
+        binding.llTripleConfig.setOnClickListener(v -> {
+            if (!tripleChecked) {
+                fadeOut();
+                fadeIn(binding.ivTripleConfig);
+                tripleChecked = true;
+            }
+        });
+
         binding.llAllConfig.setOnClickListener(v -> {
-            if (!(boolean) Hawk.get(PreferencesHelper.ALL_CHECK)) {
+            if (!allChecked) {
                 fadeOut();
                 fadeIn(binding.ivAllConfig);
                 allChecked = true;
@@ -114,16 +129,21 @@ public class SettingsDialogFragment extends DialogFragment {
     }
 
     private void fadeOut() {
-        View view = null;
-        if (Hawk.get(PreferencesHelper.SINGLE_CHECK)) {
+        View view;
+        if (singleChecked) {
             view = binding.ivSingleConfig;
             singleChecked = false;
-        } else if (Hawk.get(PreferencesHelper.DOUBLE_CHECK)) {
+        } else if (doubleChecked) {
             view = binding.ivDoubleConfig;
             doubleChecked = false;
-        } else if (Hawk.get(PreferencesHelper.ALL_CHECK)) {
+        } else if (tripleChecked) {
+            view = binding.ivTripleConfig;
+            tripleChecked = false;
+        } else if (allChecked) {
             view = binding.ivAllConfig;
             allChecked = false;
+        } else {
+            view = binding.ivSingleConfig;
         }
 
         YoYo.with(Techniques.FadeOut)

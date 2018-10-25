@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="lesson"
+            type="br.com.matheus.chamada.model.response.Lesson" />
+
+        <variable
             name="student"
             type="br.com.matheus.chamada.model.response.Student" />
     </data>
@@ -22,8 +26,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_toStartOf="@+id/clFault"
             android:layout_toEndOf="@+id/civStudent"
-            android:layout_toStartOf="@+id/rlFault"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -32,8 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
-                android:text="@{student.name}"
                 android:singleLine="true"
+                android:text="@{student.name}"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -53,29 +57,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text='@{"Faltas: " + student.faults}'
+                    android:text='@{"Faltas: " + student.allFaults}'
                     android:textSize="13sp" />
 
             </RelativeLayout>
 
         </LinearLayout>
 
-
-
-        <include
-            android:id="@+id/rlFault"
-            layout="@layout/layout_call"
+        <br.com.matheus.chamada.view.CallLayout
+            android:id="@+id/clFault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_margin="10dp" />
+            android:layout_margin="@dimen/small_margin"
+            app:marks="@{student.faults}"
+            app:count="@{lesson.schedules.size()}" />
 
         <View
             android:id="@+id/vDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="@dimen/small_margin"
             android:layout_toEndOf="@+id/civStudent"
             android:background="@color/dividerColor" />
 

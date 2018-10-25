@@ -122,6 +122,46 @@
                 android:background="@color/dividerColor" />
 
             <LinearLayout
+                android:id="@+id/llTripleConfig"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/small_margin">
+
+                <br.com.matheus.chamada.view.CallLayout
+                    android:id="@+id/clTripleConfig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:marks="3"
+                    app:onlyShow="true" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_weight="1"
+                    android:text="Chamada tripla"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivTripleConfig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:alpha="0"
+                    android:contentDescription="@string/iv_check"
+                    android:src="@drawable/ic_check" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dividerColor" />
+
+            <LinearLayout
                 android:id="@+id/llAllConfig"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

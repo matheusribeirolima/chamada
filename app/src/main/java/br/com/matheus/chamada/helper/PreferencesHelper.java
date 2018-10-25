@@ -10,6 +10,7 @@ public class PreferencesHelper {
     public static final String ACCESS_TOKEN = "sp_access_token";
     public static final String SINGLE_CHECK = "sp_single_check";
     public static final String DOUBLE_CHECK = "sp_double_check";
+    public static final String TRIPLE_CHECK = "sp_triple_check";
     public static final String ALL_CHECK = "sp_all_check";
 
     public static void logout() {
