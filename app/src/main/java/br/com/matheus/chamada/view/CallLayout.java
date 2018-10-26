@@ -196,4 +196,20 @@ public class CallLayout extends RelativeLayout {
                 break;
         }
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getMarks() {
+        return marks;
+    }
+
+    public void setMarks(int marks) {
+        this.marks = marks;
+    }
 }

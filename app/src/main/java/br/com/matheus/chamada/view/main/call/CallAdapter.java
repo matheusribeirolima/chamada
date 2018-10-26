@@ -1,7 +1,6 @@
 package br.com.matheus.chamada.view.main.call;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,19 +33,12 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Student> students = new ArrayList<>();
     private Lesson lesson;
     private ImageLoader imageLoader = ImageLoader.getInstance();
-    private Context context;
 
-    CallAdapter(Context context) {
-        this.context = context;
-    }
-
-    void setStudents(List<Student> students) {
-        this.students = students;
-        notifyDataSetChanged();
-    }
-
-    void setLesson(Lesson lesson) {
+    void setData(List<Student> students, Lesson lesson) {
         this.lesson = lesson;
+        this.students.clear();
+        this.students.addAll(students);
+        notifyDataSetChanged();
     }
 
     List<Student> getStudents() {
@@ -79,7 +69,7 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NormalViewHolder) {
-            final Student student = students.get(position);
+            final Student student = students.get(position - 1);
             final NormalViewHolder normalViewHolder = (NormalViewHolder) holder;
 
             normalViewHolder.binding.setStudent(student);
@@ -96,15 +86,16 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //            normalViewHolder.binding.rlFault.cbFault4
 //                    .setChecked(normalViewHolder.binding.rlFault.cbFault4.isChecked());
 
-            if ((position + 1) < students.size()) {
+            if ((position + 1) <= students.size()) {
                 normalViewHolder.binding.vDivider.setVisibility(View.VISIBLE);
             } else {
                 normalViewHolder.binding.vDivider.setVisibility(View.GONE);
             }
-        } else {
+        } else if (holder instanceof HeaderViewHolder) {
             final HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
 
-            String classroom = context.getResources().getString(R.string.frag_call_classroom);
+            String classroom = headerViewHolder.itemView.getContext()
+                    .getResources().getString(R.string.frag_call_classroom);
 
             SpannableStringBuilder strClassroom = new SpannableStringBuilder(classroom +
                     lesson.getClassroom().getCode());
@@ -115,7 +106,7 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             headerViewHolder.binding.tvClassroomCall.setText(strClassroom);
 
-            String theme = context.getResources().getString(R.string.frag_call_theme);
+            String theme = headerViewHolder.itemView.getResources().getString(R.string.frag_call_theme);
 
             SpannableStringBuilder strTheme = new SpannableStringBuilder(theme +
                     lesson.getClassroom().getTheme().getName());
@@ -126,7 +117,7 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             headerViewHolder.binding.tvThemeCall.setText(strTheme);
 
-            String schedule = context.getResources().getString(R.string.frag_call_schedule);
+            String schedule = headerViewHolder.itemView.getResources().getString(R.string.frag_call_schedule);
 
             StringBuilder stringSchedule = new StringBuilder();
             for (int i = 0; i < lesson.getSchedules().size(); i++) {
@@ -145,7 +136,7 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             headerViewHolder.binding.tvScheduleCall.setText(strSchedule);
 
-            String blockClass = context.getResources().getString(R.string.frag_call_block_class);
+            String blockClass = headerViewHolder.itemView.getResources().getString(R.string.frag_call_block_class);
 
             SpannableStringBuilder strBlockClass = new SpannableStringBuilder(blockClass +
                     lesson.getClassroom().getBlockClass());
@@ -160,7 +151,7 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return students.size();
+        return students.size() > 0 ? students.size() + 1 : 0;
     }
 
     class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -182,8 +173,6 @@ public class CallAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.binding = binding;
 
             binding.setLesson(lesson);
-
-            binding.executePendingBindings();
         }
     }
 }
